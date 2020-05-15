@@ -1,0 +1,14 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+Vagrant.configure("2") do |config|
+	config.vm.box = "ipv4v6/kali"
+	config.vm.hostname = "kali-m"
+	config.vm.synced_folder ".", "/vagrant", disabled: true
+	config.ssh.password = "vagrant"
+	config.vm.provider :libvirt do |domain|
+		domain.memory = 4096
+		domain.cpus = 2
+		domain.graphics_type = "spice"
+		domain.video_type = "qxl"
+		domain.keymap = "de"
+	end
+end
