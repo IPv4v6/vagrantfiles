@@ -1,0 +1,23 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+Vagrant.configure("2") do |config|
+	config.vm.box = "ipv4v6/kali"
+	config.vm.hostname = "client1"
+	config.vm.network :private_network, :ip => "10.10.10.111",
+	:libvirt__netmask => "255.255.255.128",
+	:libvirt__network_name => "vgrnt-clt1",
+	:libvirt__dhcp_enabled => false,
+	:libvirt__forward_mode => "route"
+	config.vm.synced_folder ".", "/vagrant", disabled: true
+	config.ssh.password = "vagrant"
+	config.vm.provider :libvirt do |domain|
+		domain.memory = 1024
+		domain.cpus = 1
+		domain.graphics_type = "spice"
+		domain.video_type = "qxl"
+		domain.keymap = "de"
+		domain.management_network_name = "vgrnt-mgmt"
+		domain.management_network_address = "172.23.23.0/26"
+		domain.management_network_mode = "none"
+	end
+	config.vm.provision "shell", run: "always", path: "provision.sh"
+end
