@@ -1,0 +1,17 @@
+graph G {
+	graph [dpi=200, fontname="Noto Sans"]
+	node [fontname="Noto Sans"]
+	edge [fontname="Noto Sans"]
+	rankdir=TB
+	host [shape=box, label="Vagrant host", fontsize=14]
+	client1 [shape=box, label=<client1<br/><br/><b>10.10.10.111/25</b>>,
+	fontsize=10]
+	client2 [shape=box, label=<client2<br/><br/><b>10.10.10.222/25</b>>,
+	fontsize=10]
+	server [shape=box, label=<server<br/><br/><b>10.10.255.100/24</b>>,
+	fontsize=10]
+
+	host -- client1
+	host -- client2
+	host -- server
+}
